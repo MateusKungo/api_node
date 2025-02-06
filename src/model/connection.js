@@ -1,12 +1,8 @@
 const mysql=require('mysql2/promise')
-
-
-
 const connection=mysql.createPool({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'db_saudebemestar',
-    port: 3306
+    host:'mysql-meubancobemestar123.alwaysdata.net',
+    user:'398169',
+    password:'meubancobemestar123Boma@_',
+    database:'meubancobemestar123_bemestar',
 })
 module.exports=connection
