@@ -187,12 +187,13 @@ const addHistorio = async (historicoUsuario) => {
   const { id_usuario, data_registro, humor, comentarios } = historicoUsuario;
   console.log(id_usuario, data_registro, humor, comentarios);
   const queryiserirHistorico =
-    "INSERT INTO HumorEstadoMental (id_usuario,data_registro,humor,comentarios) VALUES (?,?,?,?)";
+    "INSERT INTO HumorEstadoMental (id_usuario,data_registro,humor,comentarios,nivelsono) VALUES (?,?,?,?,?)";
   const [result] = await connection.execute(queryiserirHistorico, [
     id_usuario,
     data_registro,
     humor,
     comentarios,
+    nivelsono,
   ]);
 
   return { insertId: result.insertId };
