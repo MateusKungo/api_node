@@ -184,7 +184,7 @@ const Historico_usuarios = async (req, res) => {
 
 
 const addHistorio = async (historicoUsuario) => {
-  const { id_usuario, data_registro, humor, comentarios } = historicoUsuario;
+  const { id_usuario, data_registro, humor, comentarios,nivelsono } = historicoUsuario;
   console.log(id_usuario, data_registro, humor, comentarios);
   const queryiserirHistorico =
     "INSERT INTO HumorEstadoMental (id_usuario,data_registro,humor,comentarios,nivelsono) VALUES (?,?,?,?,?)";
