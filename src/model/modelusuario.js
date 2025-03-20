@@ -254,6 +254,44 @@ const addAtividade = async (novoAtividade) => {
   return { insertId: result.insertId };
 };
 
+const novoUsuarioAdmin = async (usuarioAdmin) => {
+  const { nome, email, senha } = usuarioAdmin;
+
+  if (!nome || !email || !senha) {
+    throw new Error("Nome, email e senha são obrigatórios para admin");
+  }
+
+  const queryVerificaAdmin = "SELECT * FROM usuaadmin WHERE email = ?";
+  const [admins] = await connection.execute(queryVerificaAdmin, [email]);
+
+  if (admins.length > 0) {
+    throw new Error("Já existe um administrador com esse email");
+  }
+
+  const senhaCriptografada = await bcrypt.hash(senha, 10);
+
+  const queryInserirAdmin = 
+    "INSERT INTO usuaadmin (nome, email, senha) VALUES (?, ?, ?)";
+  const [result] = await connection.execute(queryInserirAdmin, [
+    nome,
+    email,
+    senhaCriptografada,
+  ]);
+
+  const insertId = result.insertId;
+
+  // Consulta os dados do admin recém-cadastrado
+  const queryBuscarAdmin = 
+    "SELECT id, nome, email FROM usuaadmin WHERE id = ?";
+  const [novoAdmin] = await connection.execute(queryBuscarAdmin, [insertId]);
+
+  if (novoAdmin.length === 0) {
+    throw new Error("Erro ao buscar o administrador recém-cadastrado");
+  }
+
+  return novoAdmin[0];
+};
+
 module.exports = {
   getAll,
   novoUsuario,
@@ -265,5 +303,6 @@ module.exports = {
   deleteHistorico,
   AtividadeRealizadaGetAll,
   addAtividade,
-  Historico_usuarios ,
+  Historico_usuarios,
+  novoUsuarioAdmin, // Add this new export
 };

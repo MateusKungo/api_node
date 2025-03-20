@@ -186,6 +186,20 @@ const   addAtividade= async(req,res)=>{
     return res.status(500).json({message: "Erro interno do Sevidor"})
   }
 }
+const novoUsuarioAdmin = async (req, res) => {
+  try {
+    const novoAdmin = await usuarioModel.novoUsuarioAdmin(req.body);
+    if (!novoAdmin) {
+      return res.status(400).json({ message: "Erro ao criar usuário administrador" });
+    }
+    return res.status(201).json(novoAdmin);
+  } catch (error) {
+    console.error("Erro ao criar usuário administrador:", error);
+    return res.status(500).json({ 
+      message: error.message || "Erro interno do servidor" 
+    });
+  }
+};
 module.exports = {
   getAll,
   novoUsuario,
@@ -197,5 +211,6 @@ module.exports = {
   deleteHistorico,
   AtividadeRealizadaGetAll,
   addAtividade,
-  Historico_usuario
+  Historico_usuario,
+  novoUsuarioAdmin, // Add this new export
 };

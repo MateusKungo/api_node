@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const usuarioController=require('./controllers/usuarioControles')
 
-
 // Usuario
 router.post("/login", usuarioController.loginController)
 router.get("/usuario", usuarioController.getAll);
 router.post('/usuario',usuarioController.novoUsuario)
+router.post('/admin', usuarioController.novoUsuarioAdmin) // New admin registration route
 router.delete('/usuario/:id_usuario', usuarioController.deleteUsuarios)
 router.put('/usurios/:id_usuario', usuarioController.deleteUsuarios)
 //Fim Usuario
